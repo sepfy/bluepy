@@ -780,7 +780,8 @@ class Scanner(BluepyHelper):
         self.scanned = {}
         self.iface=iface
         self.passive=False
-    
+        self.do_process = True        
+ 
     def _cmd(self):
         return "pasv" if self.passive else "scan"
 
@@ -812,6 +813,10 @@ class Scanner(BluepyHelper):
                                 "Helper not started (did you call start()?)")
         start = time.time()
         while True:
+
+            if self.do_process is False:
+              break
+
             if timeout:
                 remain = start + timeout - time.time()
                 if remain <= 0.0: 
